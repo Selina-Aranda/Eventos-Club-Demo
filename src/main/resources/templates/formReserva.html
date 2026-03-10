@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Reserva de Evento</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <div class="card shadow p-4">
+
+            <h2 class="mb-4 text-center">Reservar Evento</h2>
+
+            <!-- Información del evento -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+            <img th:src="@{'/' + ${img}}" class="img-fluid rounded border">
+                </div>
+
+                <div class="col-md-8">
+                    <h4 th:text="${evento}" class="fw-bold mb-2"></h4>
+
+                    <p class="mb-1">
+                        <strong>Precio:</strong> S/ <span th:text="${precio}"></span>
+                    </p>
+
+                    <p class="mb-1">
+                        <strong>Cliente:</strong> <span th:text="${cliente}"></span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- FORMULARIO -->
+            <form action="/reservas/guardar" method="post" class="row g-3">
+
+                <!-- ID oculto -->
+                <input type="hidden" name="id_evento" th:value="${id_evento}">
+
+                <!-- Fecha -->
+                <div class="col-md-6">
+                    <label class="form-label">Fecha</label>
+                    <input type="date" name="fecha_reservada" class="form-control" required>
+                </div>
+
+                <!-- Hora -->
+                <div class="col-md-6">
+                    <label class="form-label">Hora</label>
+                    <input type="time" name="hora_reservada" class="form-control" required>
+                </div>
+
+                <!-- Teléfono -->
+                <div class="col-md-6">
+                    <label class="form-label">Teléfono</label>
+                    <input type="text" name="telefono" class="form-control" placeholder="Ej: 987654321" required>
+                </div>
+
+                <!-- Método de pago -->
+                <div class="col-md-6">
+                    <label class="form-label">Método de Pago</label>
+                    <select name="metodo_pago" class="form-select" required>
+                        <option value="">Seleccione...</option>
+                        <option>Efectivo</option>
+                        <option>Tarjeta</option>
+                        <option>Transferencia</option>
+                    </select>
+                </div>
+
+                <!-- Observaciones -->
+                <div class="col-12">
+                    <label class="form-label">Observaciones</label>
+                    <textarea name="observaciones" class="form-control" rows="3"
+                        placeholder="Opcional: algún detalle adicional"></textarea>
+                </div>
+
+                <!-- Botón -->
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-primary px-5">
+                        Confirmar Reserva
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

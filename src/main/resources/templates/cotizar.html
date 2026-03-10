@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark py-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="assets/img/logo/eventos aranda.png" alt="Logo" width="100" height="100" class="d-inline-block align-text-top">
+              </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" th:href="@{/}">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#nosotros">Nosotros</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/servicios}">Servicios</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/reserva}">Reservas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/contactanos}">Cotizar</a>
+              </li>
+            
+            </ul>
+          </div>
+                    <a class="navbar-brand" th:href="@{/reserva}">
+          <img th:src="@{/img/logo/person-circle.svg}" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+         </a>
+        </div>
+      </nav>
+
+      
+        <div class="container p-2 mt-5">
+          <div class="row">
+          <!--Formulario de contacto-->
+          <div class="col-md-8 mx-auto">
+            <div class="card shadow">
+              <div class="card-body">
+                <h1 class="card-tittle mb-3 text-center">PIDE TU COTIZACIÓN AQUI</h1>
+                
+                <form id="clienteForm">
+                  <div class="row">
+                    <div class="col">
+                    <label for="nombre" class="form-label">Nombre y Apellido</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="Juan Perez" aria-label="Juan Perez" required>
+                    </div>
+                    
+                  <div class="col">
+                    <label for="correo" class="form-label">Correo electrónico</label>
+                      <div class="input-group">
+                        <span class="input-group-text">@</span>
+                        <input type="text" class="form-control" placeholder="juan@gmail.com" aria-label="juan@gmail.com" required>
+                      </div>
+                  </div>
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col">
+                      <label for="numero" class="form-label">Número</label>
+                    <div class="input-group">
+                      <span class="input-group-text">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-phone" viewBox="0 0 16 16">
+                            <path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                            <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                        </svg>
+                      </span>
+                      <input type="text" class="form-control" id="numero" placeholder="987654321" aria-label="987654321" required>
+                    </div>
+                    </div>
+
+                    <div class="col">
+                      <label for="servicio" class="form-label">Servicio</label>
+                      <select class="form-select" aria-label="Seleccion Servicio">
+                      <option selected>--Elige un servicio--</option>
+                      <option value="cumpleaños">Cumpleaños</option>
+                      <option value="fiesta infantil">Fiesta infantil</option>
+                      <option value="baby shower">Baby shower</option>
+                      <option value="boda">Boda</option>
+                      <option value="evento corporativo">Evento Corporativo</option>
+                      <option value="quinceañero">Quinceañero</option>
+                      <option value="prom">Fiesta de promoción o graduación</option>
+                      <option value="bautizo">Bautizo</option>
+                      <option value="otro">Otro...</option>
+                      </select>
+                    </div>
+
+                  </div>
+
+                  <div class="row">
+                    <div class="mb-3">
+                      <label for="textarea" class="form-label">Mensaje</label>
+                      <textarea class="form-control" id="textarea1" rows="3" placeholder="Escribe tu mensaje aquí..."></textarea>
+                    </div>
+                  </div>
+
+                <div class="row">
+                  <div class="col-sm-12 d-flex justify-content-center">
+                   <button type="submit" class="btn btn-primary w-50">Enviar</button>
+                  </div>
+                </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+          </div>
+        </div>
+
+  <footer class="bg-dark text-white text-center text-lg-start mt-5">
+    <div class="container p-4">
+      <div class="row">
+        <!-- Columna 1 -->
+        <div class="col-lg-4 col-md-6 mb-4">
+          <h5 class="text-uppercase">Eventos Aranda</h5>
+          <p>
+            Creamos experiencias inolvidables para tus eventos sociales y corporativos.  
+            Nuestra misión es brindarte tranquilidad y satisfacción en cada detalle.
+          </p>
+        </div>
+
+        <!-- Columna 2 -->
+        <div class="col-lg-4 col-md-6 mb-4">
+          <h5 class="text-uppercase">Enlaces</h5>
+          <ul class="list-unstyled mb-0">
+            <li><a href="#" class="text-white text-decoration-none">Inicio</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Sobre nosotros</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Servicios</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Contacto</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna 3 -->
+        <div class="col-lg-4 col-md-12 mb-4">
+          <h5 class="text-uppercase">Contacto</h5>
+          <p><i class="bi bi-geo-alt"></i> Lima, Perú</p>
+          <p><i class="bi bi-envelope"></i> Aranda@gmail.com</p>
+          <p><i class="bi bi-phone"></i> +51 987 654 321</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parte inferior -->
+    <div class="text-center p-3 bg-secondary">
+      © 2025 Eventos Aranda - Todos los derechos reservados
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservas - Admin Eventos Aranda</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card { border-radius: 12px; }
+        .table thead { background: #212529; color: #fff; }
+    </style>
+</head>
+<body>
+<div class="container-fluid p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Reservas Activas</h2>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservaModal" onclick="abrirCrearReserva()">+ Nueva Reserva</button>
+    </div>
+
+    <div class="card p-3 mb-4">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Cliente</th>
+                <th>Evento</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="r,iterStat : ${reservas}">
+                <td th:text="${iterStat.count}"></td>
+                <td th:text="${r.cliente.nombre}"></td>
+                <td th:text="${r.evento.tipo}"></td>
+                <td th:text="${r.fecha_reservada}"></td>
+                <td th:text="${r.hora_reservada}"></td>
+                <td><span th:text="${r.estado}" th:classappend="${r.estado=='Confirmada'} ? 'badge bg-success' : 'badge bg-warning'"></span></td>
+                <td>
+
+<button type="button"
+        class="btn btn-sm btn-outline-secondary"
+        th:onclick="abrirEditarReserva([[${r.id}]], '[[${r.cliente.id}]]', '[[${r.evento.id}]]', '[[${r.fecha_reservada}]]', '[[${r.hora_reservada}]]', '[[${r.estado}]]', '[[${r.observaciones}]]')">
+        Editar
+</button>
+
+                    <a th:href="@{'/admin/reservas/eliminar/' + ${r.id}}" class="btn btn-sm btn-danger" onclick="return confirm('Eliminar reserva?')">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal Crear/Editar Reserva -->
+<div class="modal fade" id="reservaModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form th:action="@{/admin/reservas/guardar}" th:object="${reserva}" method="post" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reservaModalLabel">Nueva Reserva</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" th:field="*{id}">
+                <div class="mb-3">
+                    <label>Cliente</label>
+                    <select th:field="*{cliente.id}" class="form-select" required>
+                        <option value="">-- Elige cliente --</option>
+                        <option th:each="u : ${usuarios}" th:value="${u.id}" th:text="${u.nombre}">Cliente</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label>Evento</label>
+                    <select th:field="*{evento.id}" class="form-select" required>
+                        <option value="">-- Elige evento --</option>
+                        <option th:each="e : ${eventos}" th:value="${e.id}" th:text="${e.tipo}">Evento</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label>Fecha</label>
+                    <input type="date" th:field="*{fecha_reservada}" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label>Hora</label>
+                    <input type="time" th:field="*{hora_reservada}" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label>Estado</label>
+                    <select th:field="*{estado}" class="form-select">
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Confirmada">Confirmada</option>
+                        <option value="Cancelada">Cancelada</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label>Observaciones</label>
+                    <textarea th:field="*{observaciones}" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar Reserva</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function abrirCrearReserva() {
+            const form = document.querySelector('#reservaModal form');
+        document.getElementById('reservaModalLabel').innerText = 'Nueva Reserva';
+        form.action = '/admin/reservas/guardar';
+
+         const modal = new bootstrap.Modal(document.getElementById('reservaModal'));
+        modal.show();
+    }
+
+     function abrirEditarReserva(id, clienteId, eventoId, fecha, hora, estado, observaciones) {
+        const form = document.querySelector('#reservaModal form');
+        document.getElementById('reservaModalLabel').innerText = 'Editar Reserva';
+        form.action = '/admin/reservas/actualizar'; 
+
+
+        form.querySelector('[name="id"]').value = id;
+        form.querySelector('[name="cliente.id"]').value = clienteId;
+        form.querySelector('[name="evento.id"]').value = eventoId;
+        form.querySelector('[name="fecha_reservada"]').value = fecha;
+        form.querySelector('[name="hora_reservada"]').value = hora;
+        form.querySelector('[name="estado"]').value = estado;
+        form.querySelector('[name="observaciones"]').value = observaciones;
+
+        const modal = new bootstrap.Modal(document.getElementById('reservaModal'));
+        modal.show();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servicios | Eventos Ariana's</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<style>
+  /* Todas las imágenes de las cards en Servicios */
+  #serviciosContainer .card-img-top {
+    height: 220px;       /* altura uniforme */
+    object-fit: cover;   /* recorta sin deformar */
+    width: 100%;         /* ancho completo */
+    border-top-left-radius: 0.375rem; /* mantiene bordes redondeados */
+    border-top-right-radius: 0.375rem;
+  }
+</style>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#"><img th:src="@{/img/logo/eventos aranda.png}" alt="Logo" width="120"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" th:href="@{/}">Inicio</a></li>
+          <li class="nav-item">
+                <a class="nav-link" href="#nosotros">Nosotros</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/servicios}">Servicios</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/reserva}">Reservas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/cotizar}">Cotizar</a>
+              </li>
+        </ul>
+      </div>
+      <a class="navbar-brand" th:href="@{/reserva}">
+        <img th:src="@{/img/logo/person-circle.svg}" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+       </a>
+    </div>
+  </nav>
+
+  <div class="pt-5"></div>
+  <div class="pt-5"></div>
+
+<!-- Servicios -->
+<section class="container p-2 mt-5" id="services">
+  <h1 class="text-center fw-bold mb-4">Nuestros Servicios</h1>
+  <div class="row g-4" id="serviciosContainer"></div>
+</section>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="servicioModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <img id="modalImg" src="" class="img-fluid mb-3 rounded" alt="">
+          <p id="modalDesc"></p>
+          <div class="d-flex flex-wrap gap-2" id="modalGaleria"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white mt-5 pt-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 text-center mb-3">
+          <img th:src="@{/img/logo/LogoATW.webp}" alt="Logo" width="150">
+        </div>
+        <div class="col-md-3 mb-3">
+          <h5>Legales</h5>
+          <ul class="list-unstyled">
+            <li><a href="/terminos" class="text-white text-decoration-none">Términos y Condiciones</a></li>
+            <li><a href="/cookies" class="text-white text-decoration-none">Política de Cookies</a></li>
+            <li><a href="/contratacion" class="text-white text-decoration-none">Política de Contratación</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 mb-3">
+          <h5>Contacto</h5>
+          <p><i class="bi bi-phone"></i> <a href="tel:+51950133911" class="text-white text-decoration-none">+51 950 133 911</a></p>
+          <p><i class="bi bi-envelope"></i> <a href="mailto:ariana@eventos.com" class="text-white text-decoration-none">ariana@eventos.com</a></p>
+        </div>
+        <div class="col-md-3 mb-3">
+          <h5>Redes Sociales</h5>
+          <a href="https://www.facebook.com/profile.php?id=61572937177015&locale=es_LA" target="_blank" class="text-white me-2"><i class="bi bi-facebook fs-4"></i></a>
+          <a href="https://www.instagram.com/puntoceo.mkt/" target="_blank" class="text-white me-2"><i class="bi bi-instagram fs-4"></i></a>
+          <a href="https://www.tiktok.com/@puntoceo.mkt?lang=es" target="_blank" class="text-white"><i class="bi bi-tiktok fs-4"></i></a>
+        </div>
+      </div>
+      <div class="text-center py-3 border-top border-secondary mt-3">
+        <p class="mb-0">Eventos Ariana's - R.U.C. 8451835241858</p>
+        <p class="mb-0">&copy; 2025 Eventos Ariana´s. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <!-- Formulario flotante -->
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="formularioFlotante">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">Contáctanos</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <form id="formContactoFlotante">
+        <div class="mb-3">
+          <label for="nombreApellido" class="form-label">Nombre y Apellido</label>
+          <input type="text" class="form-control" id="nombreApellido" required>
+        </div>
+        <div class="mb-3">
+          <label for="correo" class="form-label">Correo</label>
+          <input type="email" class="form-control" id="correo" required>
+        </div>
+        <div class="mb-3">
+          <label for="telefono" class="form-label">Número telefónico</label>
+          <input type="tel" class="form-control" id="telefono" pattern="9[0-9]{8}" required>
+        </div>
+        <div class="mb-3">
+          <label for="servicio" class="form-label">Servicio</label>
+          <select class="form-select" id="servicio" required>
+            <option value="">---Seleccione---</option>
+            <option value="cumpleaños">Cumpleaños</option>
+            <option value="fiesta infantil">Fiesta infantil</option>
+            <option value="baby shower">Baby shower</option>
+            <option value="boda">Boda</option>
+            <option value="evento corporativo">Evento corporativo</option>
+            <option value="quinceañero">Quinceañero</option>
+            <option value="graduación">Graduación</option>
+            <option value="bautizo">Bautizo</option>
+            <option value="despedida de soltera">Despedida de soltera</option>
+            <option value="50 años">50 años</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="mensaje" class="form-label">Mensaje</label>
+          <textarea class="form-control" id="mensaje" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Enviar</button>
+        <div id="mensajeError" class="text-danger mt-2 d-none">Por favor completa todos los campos.</div>
+        <div id="mensajeExito" class="text-success mt-2 d-none">¡Mensaje enviado con éxito!</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const servicios = [
+        {
+          nombre: "Fiesta de 50 años",
+          descripcion: "Celebra medio siglo con una fiesta inolvidable. Decoración elegante, música en vivo y detalles personalizados.",
+          imagen: "img/50_anios/50an.jpg",
+          galeria: [
+            "/img/50_anios/decoracion.jpg",
+            "/img/50_anios/bar.jpg",
+            "/img/50_anios/bocaditos.jpg",
+            "/img/50_anios/pastel.jpg"
+          ]
+        },
+        {
+          nombre: "Baby Shower",
+          descripcion: "Creamos un ambiente tierno y especial para dar la bienvenida al nuevo miembro de la familia.",
+          imagen: "/img/baby_showers/decoracion_conejito.jpg",
+          galeria: [
+            "/img/baby_showers/decoracion_femenina.jpg",
+            "/img/baby_showers/masculino.jpg",
+            "/img/baby_showers/niño_O_niña.jpg",
+            "/img/baby_showers/decoracion_osito.jpg"
+          ]
+        },
+        {
+          nombre: "Bautizos",
+          descripcion: "Organizamos bautizos con toques clásicos y modernos, adaptándonos a tus tradiciones.",
+          imagen: "/img/bautizos/decoracion.jpg",
+          galeria: [
+            "/img/bautizos/mesa.jpg",
+            "/img/bautizos/pastel.jpg"
+          ]
+        },
+        {
+          nombre: "Graduaciones",
+          descripcion: "Eventos para cerrar ciclos escolares con alegría, recuerdos y estilo.",
+          imagen: "/img/graduaciones/escenario.jpg",
+          galeria: [
+            "/img/graduaciones/aaa.jpg",
+            "/img/graduaciones/promocion_primaria.jpg",
+            "/img/graduaciones/promocion.jpg",
+            "/img/graduaciones/escenario2.jpg",
+            "/img/graduaciones/el_causa.jpg",
+            "/img/graduaciones/hora_loca.jpg"
+          ]
+        },
+        {
+          nombre: "Bodas",
+          descripcion: "Diseñamos bodas de ensueño, cuidando cada detalle, desde la ceremonia hasta la fiesta.",
+          imagen: "/img/bodas/novios.jpg",
+          galeria: [
+            "/img/bodas/novios_baile.jpg",
+            "/img/bodas/novios_mirada.jpg",
+            "/img/bodas/novios_piscina.jpg",
+            "/img/bodas/la_mascara_en_la_boda.jpg"
+          ]
+        },
+        {
+          nombre: "Decoraciones",
+          descripcion: "Desde decoraciones para cumpleaños infantiles hasta adultos, hacemos que cada celebración sea única.",
+          imagen: "/img/cumpleaños/cumpleaños_ramdom.jpg",
+          galeria: [
+            "/img/cumpleaños/cumpleaños_cristiano.jpg",
+            "/img/cumpleaños/decoracion1.jpg"
+          ]
+        },
+        {
+          nombre: "Despedidas de soltera",
+          descripcion: "Organizamos despedidas inolvidables: divertidas, glamorosas o temáticas, según tu estilo.",
+          imagen: "img/despedida_soltera/señorita.jpg",
+          galeria: [
+            "/img/despedida_soltera/piscina.jpg",
+            "/img/despedida_soltera/señorita.jpg"
+          ]
+        },
+        {
+          nombre: "Quinceañeros",
+          descripcion: "Una noche mágica para celebrar los 15 años con elegancia, música, luces y más.",
+          imagen: "/img/quinceañeros/decoracion_amplio.jpg",
+          galeria: [
+            "/img/quinceañeros/quinceañera.jpg",
+            "/img/quinceañeros/quinceañera2.jpg",
+            "/img/quinceañeros/quinceañera3.jpg",
+            "/img/quinceañeros/torta_.jpg",
+            "/img/quinceañeros/quinceañero_sala.jpg",
+            "/img/quinceañeros/quinceañera_y_escenario.jpg",
+            "/img/quinceañeros/quinceañera_y_barman.jpg"
+          ]
+        }
+      ];
+
+      const contenedor = document.getElementById("serviciosContainer");
+      const modal = new bootstrap.Modal(document.getElementById("servicioModal"));
+      const modalTitle = document.getElementById("modalTitle");
+      const modalDesc = document.getElementById("modalDesc");
+      const modalImg = document.getElementById("modalImg");
+      const galeriaContenedor = document.getElementById("modalGaleria");
+
+      servicios.forEach(servicio => {
+        const col = document.createElement("div");
+        col.className = "col-md-4";
+
+        col.innerHTML = `
+          <div class="card h-100 shadow-sm">
+            <img src="${servicio.imagen}" class="card-img-top" alt="${servicio.nombre}">
+            <div class="card-body">
+              <h5 class="card-title">${servicio.nombre}</h5>
+              <p class="card-text">${servicio.descripcion.substring(0, 80)}...</p>
+              <button class="btn btn-primary verMas">Ver más</button>
+            </div>
+          </div>
+        `;
+
+        col.querySelector(".verMas").addEventListener("click", () => {
+          modalTitle.textContent = servicio.nombre;
+          modalDesc.textContent = servicio.descripcion;
+          modalImg.src = servicio.imagen;
+          galeriaContenedor.innerHTML = "";
+
+          servicio.galeria.forEach(src => {
+            const img = document.createElement("img");
+            img.src = src;
+            img.alt = servicio.nombre;
+            img.className = "img-thumbnail me-2 mb-2";
+            img.style.width = "100px";
+            img.style.cursor = "pointer";
+            img.addEventListener("click", () => { modalImg.src = src; });
+            galeriaContenedor.appendChild(img);
+          });
+
+          modal.show();
+        });
+
+        contenedor.appendChild(col);
+      });
+
+      // Formulario flotante
+      const abrirFormBtn = document.getElementById("abrirFormulario");
+      const formularioFlotante = new bootstrap.Offcanvas(document.getElementById("formularioFlotante"));
+      const formFlotante = document.getElementById("formContactoFlotante");
+      const errorMsg = document.getElementById("mensajeError");
+      const exitoMsg = document.getElementById("mensajeExito");
+
+      abrirFormBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        formularioFlotante.show();
+        errorMsg.classList.add("d-none");
+        exitoMsg.classList.add("d-none");
+        formFlotante.reset();
+      });
+
+      formFlotante.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const nombre = document.getElementById("nombreApellido").value.trim();
+        const correo = document.getElementById("correo").value.trim();
+        const telefono = document.getElementById("telefono").value.trim();
+        const servicio = document.getElementById("servicio").value.trim();
+
+        if (!nombre || !correo || !telefono || !servicio) {
+          errorMsg.classList.remove("d-none");
+          exitoMsg.classList.add("d-none");
+        } else {
+          errorMsg.classList.add("d-none");
+          exitoMsg.classList.remove("d-none");
+          formFlotante.reset();
+          setTimeout(() => formularioFlotante.hide(), 2000);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

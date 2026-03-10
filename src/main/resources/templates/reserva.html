@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservas - Eventos Aranda</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-img-top {
+            width: 100%;
+            height: 200px;
+            object-fit: cover; 
+        }
+    </style>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark py-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="img/logo/LOGO.png" alt="Logo" width="80" height="80">
+            Eventos Aranda
+        </a>
+         <!-- Botón de Logout -->
+         <div class="d-flex">
+            <a th:href="@{/logout}" class="btn btn-danger">Cerrar sesión</a>
+        </div>
+    </div>
+</nav>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Reservar Eventos</h2>
+    <div class="row">
+        
+        <div class="row g-4">
+
+            <!-- Evento 1: Fiesta de 50 años -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="img/50_anios/50añ.jpg" class="card-img-top" alt="Fiesta de 50 años">
+                    <div class="card-body">
+                        <h5 class="card-title">Fiesta de 50 años</h5>
+                        <p class="card-text">Celebra medio siglo con una fiesta inolvidable. Decoración elegante, música en vivo y detalles personalizados.</p>
+                        <p><strong>Precio: S/ 5,500</strong></p>
+                        <a th:href="@{/reservar(id_evento=8, evento='Fiesta de 50 años', precio=5500, img='img/50_anios/50añ.jpg')}" 
+                            class="btn btn-primary">Reservar</a>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Evento 2: Baby Shower -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="img/baby_showers/masculino3.webp" class="card-img-top" alt="Baby Shower">
+                    <div class="card-body">
+                        <h5 class="card-title">Baby Shower</h5>
+                        <p class="card-text">Creamos un ambiente tierno y especial para dar la bienvenida al nuevo miembro de la familia.</p>
+                        <p><strong>Precio: S/ 2,900</strong></p>
+                        <a th:href="@{/reservar(id_evento=2, evento='Baby Shower', precio=2900, img='img/baby_shower/masculino3.webp')}" class="btn btn-primary">Reservar</a>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Evento 3: Bautizos -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="img/bautizos/BAUTIZO.jpg" class="card-img-top" alt="Bautizos">
+                    <div class="card-body">
+                        <h5 class="card-title">Bautizos</h5>
+                        <p class="card-text">Organizamos bautizos con toques clásicos y modernos, adaptándonos a tus tradiciones.</p>
+                        <p><strong>Precio: S/ 3,600</strong></p>
+                        <a th:href="@{/reservar(id_evento=6, evento='Bautizos', precio=3600, img='img/bautizos/BAUTIZO.jpg')}" class="btn btn-primary">Reservar</a>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Evento 4: Graduaciones -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="img/graduaciones/promocion.jpg" class="card-img-top" alt="Graduaciones">
+                    <div class="card-body">
+                        <h5 class="card-title">Graduaciones</h5>
+                        <p class="card-text">Eventos para cerrar ciclos escolares con alegría, recuerdos y estilo.</p>
+                        <p><strong>Precio: S/ 4,700</strong></p>
+                        <a th:href="@{/reservar(id_evento=5, evento='Graduaciones', precio=4700, img='img/graduaciones/promocion.jpg')}" class="btn btn-primary">Reservar</a>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Evento 5: Bodas -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="img/bodas/novios_unas_aguas.jpg" class="card-img-top" alt="Bodas">
+                    <div class="card-body">
+                        <h5 class="card-title">Bodas</h5>
+                        <p class="card-text">Diseñamos bodas de ensueño, cuidando cada detalle, desde la ceremonia hasta la fiesta.</p>
+                        <p><strong>Precio: S/ 7,200</strong></p>
+                        <a th:href="@{/reservar(id_evento=3, evento='Bodas', precio=7200, img='img/bodas/novios_unas_aguas.jpg')}" class="btn btn-primary">Reservar</a>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Evento 6: Decoraciones -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="/img/cumpleaños/cumpleaños_ramdom.jpg" class="card-img-top" alt="Decoraciones">
+                    <div class="card-body">
+                        <h5 class="card-title">Decoraciones</h5>
+                        <p class="card-text">Desde decoraciones para cumpleaños infantiles hasta adultos, hacemos que cada celebración sea única.</p>
+                        <p><strong>Precio: S/ 1,800</strong></p>
+                        <a th:href="@{/reservar(id_evento=1, evento='Decoraciones', precio=1800, img='img/cumpleaños/cumpleaños_ramdom.jpg')}" class="btn btn-primary">Reservar</a>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Evento 7: Despedidas de soltera -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="/img/despedida_soltera/amigas_solteras_por_siempre.jpg" class="card-img-top" alt="Despedidas de soltera">
+                    <div class="card-body">
+                        <h5 class="card-title">Despedidas de soltera</h5>
+                        <p class="card-text">Organizamos despedidas inolvidables: divertidas, glamorosas o temáticas, según tu estilo.</p>
+                        <p><strong>Precio: S/ 3,200</strong></p>
+                        <a th:href="@{/reservar(id_evento=7, evento='Despedidas de soltera', precio=3200, img='img/despedida_soltera/amigas_solteras_por_siempre.jpg')}" class="btn btn-primary">Reservar</a>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Evento 8: Quinceañeros -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="img/quinceañeros/quinceañera_y_escenario.jpg" class="card-img-top" alt="Quinceañeros">
+                    <div class="card-body">
+                        <h5 class="card-title">Quinceañeros</h5>
+                        <p class="card-text">Una noche mágica para celebrar los 15 años con elegancia, música, luces y más.</p>
+                        <p><strong>Precio: S/ 6,500</strong></p>
+                        <a th:href="@{/reservar(id_evento=4, evento='Quinceañeros', precio=6500, img='img/quinceañeros/quinceañera_y_escenario.jpg')}" class="btn btn-primary">Reservar</a>
+                    </div>
+                </div>
+            </div>
+        
+        
+        </div>
+        
+
+    </div>
+</div>
+
+</body>
+</html>
