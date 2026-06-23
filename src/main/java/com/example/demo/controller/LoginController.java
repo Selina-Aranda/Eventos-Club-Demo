@@ -19,12 +19,12 @@ public class LoginController {
     @Autowired
     private UsuarioRepository repo;
 
-    @GetMapping("/login")
+    @GetMapping("/Login")
     public String mostrarLogin() {
-        return "login"; 
+        return "Login"; 
     }
 
-    @PostMapping("/login")
+    @PostMapping("/Login")
     public String login(@RequestParam String nombre,
                         @RequestParam String contraseña,
                         HttpSession session,
@@ -44,14 +44,14 @@ public class LoginController {
             }
         } else {
             model.addAttribute("error", "Usuario o contraseña incorrectos");
-            return "login";
+            return "Login";
         }
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/login";
+        return "redirect:/Login";
     }
 
     //registro
