@@ -30,7 +30,7 @@ public class ReservaController {
     public String reserva(HttpSession session, Model model) {
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         if (usuario == null) {
-            return "redirect:/login";
+            return "redirect:/Login";
         }
 
         model.addAttribute("nombreUsuario", usuario.getNombre());
@@ -48,7 +48,7 @@ public String mostrarFormularioReserva(
 ) {
     Usuario usuario = (Usuario) session.getAttribute("usuario");
     if (usuario == null) {
-        return "redirect:/login";
+        return "redirect:/Login";
     }
 
     model.addAttribute("cliente", usuario.getNombre());
@@ -68,14 +68,15 @@ public String mostrarFormularioReserva(
             Model model) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
-
         if (usuario == null) {
-            return "redirect:/login";
+            return "redirect:/Login";
         }
 
-        reserva.setCliente(usuario);
-
         Evento evento = eventoServicio.obtenerPorId(id_evento);
+
+        
+
+        reserva.setCliente(usuario);
         reserva.setEvento(evento);
         double precio = evento.getPrecio();
 
