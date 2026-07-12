@@ -15,6 +15,7 @@ import com.example.demo.servicio.UsuarioService;
 
 @Controller
 public class AdminReservaController {
+    
     @Autowired
     private ReservaService reservaService;
 
@@ -30,7 +31,7 @@ public class AdminReservaController {
         model.addAttribute("reservas", reservaService.listar());
         model.addAttribute("usuarios", usuarioService.listar());
         model.addAttribute("eventos", eventoService.listar());
-        return "reservasCrud";
+        return "reservasCrud"; // Asegúrate de que tu archivo HTML se llame reservasCrud.html
     }
 
     @PostMapping("/admin/reservas/guardar")
@@ -41,7 +42,6 @@ public class AdminReservaController {
 
     @GetMapping("/admin/reservas/editar/{id}")
     public String editarReserva(@PathVariable Integer id, Model model) {
-
         EventoReservado reserva = reservaService.obtenerPorId(id);
         
         model.addAttribute("reserva", reserva);
@@ -49,7 +49,6 @@ public class AdminReservaController {
         model.addAttribute("usuarios", usuarioService.listar());
         model.addAttribute("eventos", eventoService.listar());
         return "reservasCrud";
-
     }
 
     @GetMapping("/admin/reservas/eliminar/{id}")

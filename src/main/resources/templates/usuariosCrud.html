@@ -1,128 +1,88 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<html lang="es" 
+      xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Usuarios - Admin Eventos Aranda</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .card { border-radius: 12px; }
-        .table thead { background: #212529; color: #fff; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Ver Reservas - Society Club</title>
 </head>
-<body>
-<div class="container-fluid p-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Usuarios Registrados</h2>
-        <!-- Botón abrir modal crear -->
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#usuarioModal" onclick="abrirCrearUsuario()">+ Nuevo Usuario</button>
-    </div>
 
-    <div class="card p-3 mb-4">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Rol</th>
-                <th>Acciones</th>
-            </tr>
+<body class="bg-light">
+
+  <div layout:fragment="content">
+    
+    <!-- Contenedor principal con padding para que no se pegue al navbar -->
+    <div class="container" style="padding-top: 120px; padding-bottom: 60px; min-height: 80vh;">
+      
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold m-0" style="color: #012a4a; font-family: 'Montserrat', sans-serif;">Gestión de Reservas</h2>
+        <a th:href="@{/reservar}" class="btn btn-outline-primary fw-bold"> + Nueva Reserva</a>
+      </div>
+      
+      <!-- Tarjeta blanca que envuelve la tabla -->
+      <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4 table-responsive">
+          
+          <table class="table table-hover align-middle">
+            <thead style="background-color: #012a4a; color: white;">
+              <tr>
+                <th scope="col" class="py-3 px-3 rounded-start"># ID</th>
+                <th scope="col" class="py-3">Cliente</th>
+                <th scope="col" class="py-3">Correo</th>
+                <th scope="col" class="py-3">Teléfono</th>
+                <th scope="col" class="py-3">Tipo de Evento</th>
+                <th scope="col" class="py-3">Fecha del Evento</th>
+                <th scope="col" class="py-3 rounded-end">Estado</th>
+              </tr>
             </thead>
+            
             <tbody>
-            <tr th:each="u,iterStat : ${usuarios}">
-                <td th:text="${iterStat.count}"></td>
-                <td th:text="${u.nombre}"></td>
-                <td th:text="${u.email}"></td>
-                <td th:text="${u.rol}"></td>
+              <!-- Este bloque se repite por cada reserva en la base de datos -->
+              <tr th:each="reserva : ${reservas}">
+                <td class="fw-bold px-3" th:text="${reserva.id}">1</td>
+                
+                <!-- Accedemos a los datos del Usuario relacionado -->
+                <td th:text="${reserva.cliente.nombre}">Juan Perez</td>
+                <td th:text="${reserva.cliente.email}">juan@gmail.com</td>
+                
+                <!-- Datos propios de la reserva -->
+                <td th:text="${reserva.telefono}">987654321</td>
+                
+                <!-- Accedemos al dato del Evento relacionado -->
+                <td th:text="${reserva.evento.tipo}">Boda</td>
+                <td th:text="${reserva.fecha_reservada}">2026-08-15</td>
+                
+                <!-- Etiqueta de estado con colores dinámicos -->
                 <td>
-<button type="button" class="btn btn-sm btn-outline-secondary"
-            th:attr="data-id=${u.id}, 
-                     data-nombre=${u.nombre}, 
-                     data-email=${u.email}, 
-                     data-contraseña=${u.contraseña}, 
-                     data-rol=${u.rol}"
-            onclick="abrirEditarUsuario(this)">
-        Editar
-    </button>
-                    
-    <a th:href="@{'/admin/usuarios/eliminar/' + ${u.id}}" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar usuario?')">Eliminar</a>
+                  <span class="badge rounded-pill bg-warning text-dark px-3 py-2" 
+                        th:if="${reserva.estado == 'PENDIENTE_CONFIRMACION'}">Pendiente</span>
+                  
+                  <span class="badge rounded-pill bg-success px-3 py-2" 
+                        th:if="${reserva.estado == 'CONFIRMADA'}">Confirmada</span>
+                  
+                  <span class="badge rounded-pill bg-secondary px-3 py-2" 
+                        th:unless="${reserva.estado == 'PENDIENTE_CONFIRMACION' or reserva.estado == 'CONFIRMADA'}" 
+                        th:text="${reserva.estado}">Otro</span>
                 </td>
-            </tr>
+              </tr>
+              
+              <!-- Si la lista está vacía, mostramos este mensaje -->
+              <tr th:if="${#lists.isEmpty(reservas)}">
+                <td colspan="7" class="text-center text-muted py-5">
+                  <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+                  Aún no hay eventos reservados en la base de datos.
+                </td>
+              </tr>
             </tbody>
-        </table>
+          </table>
+
+        </div>
+      </div>
+
     </div>
-</div>
+  </div> 
 
-<!-- Modal Crear/Editar Usuario -->
-<div class="modal fade" id="usuarioModal" tabindex="-1">
-    <div class="modal-dialog">
-        <form th:action="@{/admin/usuarios/guardar}" th:object="${usuario}" method="post" class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="usuarioModalLabel">Nuevo Usuario</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" th:field="*{id}">
-                <div class="mb-3">
-                    <label>Nombre</label>
-                    <input type="text" th:field="*{nombre}" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label>Email</label>
-                    <input type="email" th:field="*{email}" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label>Contraseña</label>
-                    <input type="text" th:field="*{contraseña}" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label>Rol</label>
-                    <select th:field="*{rol}" class="form-select">
-                        <option value="CLIENTE">CLIENTE</option>
-                        <option value="ADMIN">ADMIN</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-     function abrirCrearUsuario() {
-        const form = document.querySelector('#usuarioModal form');
-        document.getElementById('usuarioModalLabel').innerText = 'Nuevo Usuario';
-        form.action = '/admin/usuarios/guardar';
-
-  
-        form.querySelector('[name="id"]').value = '';
-        form.querySelector('[name="nombre"]').value = '';
-        form.querySelector('[name="email"]').value = '';
-        form.querySelector('[name="contraseña"]').value = '';
-        form.querySelector('[name="rol"]').value = 'CLIENTE';
-
-        const modal = new bootstrap.Modal(document.getElementById('usuarioModal'));
-        modal.show();
-    }
-
-    function abrirEditarUsuario(btn) {
-        const form = document.querySelector('#usuarioModal form');
-        document.getElementById('usuarioModalLabel').innerText = 'Editar Usuario';
-        form.action = '/admin/usuarios/actualizar';
-
-        form.querySelector('[name="id"]').value = btn.dataset.id;
-        form.querySelector('[name="nombre"]').value = btn.dataset.nombre;
-        form.querySelector('[name="email"]').value = btn.dataset.email;
-        form.querySelector('[name="contraseña"]').value = btn.dataset.contraseña;
-        form.querySelector('[name="rol"]').value = btn.dataset.rol;
-
-        const modal = new bootstrap.Modal(document.getElementById('usuarioModal'));
-        modal.show();
-    }
-</script>
 </body>
 </html>
