@@ -1,195 +1,291 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eventos Aranda | Home</title>
+  <title>Eventos Society Club | Inicio</title>
+
   <link rel="stylesheet" th:href="@{/styles/index.css}">
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
   <link
-    href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-    crossorigin="anonymous"></script>
+          href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Montserrat:wght@300;500;700&display=swap"
+          rel="stylesheet">
 </head>
 
 <body>
-  <!--menu-->
-  <nav class="navbar navbar-expand-sm navbar-dark py-1" style="background-color: #013a63;">
-    <div class="container-fluid">
 
-      <a class="navbar-brand" href="/" style="font-size: 1.7em; font-family: Comfortaa;">
-        Aranda
-      </a>
+<div layout:fragment="content">
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" th:href="@{/}"
-              style="font-family: Comfortaa; font-size: 1.2em;">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/servicios}" style="font-family: Comfortaa; font-size: 1.2em;">Servicios</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/reserva}" style="font-family: Comfortaa; font-size: 1.2em;">Reservas</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/cotizar}" style="font-family: Comfortaa; font-size: 1.2em;">Cotizar</a>
-          </li>
-
-        </ul>
-      </div>
-      <a class="navbar-brand" th:href="@{/Login}">
-        <img th:src="@{/img/logo/person-circle.svg}" alt="Logo" width="50" height="50"
-          class="d-inline-block align-text-top">
-      </a>
-
-    </div>
-  </nav>
-
-  <div id="carouselExampleIndicators" class="carousel slide position-relative">
-
+  <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-pause="false">
     <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-        aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-        aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-        aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
     </div>
 
-    <div class="carousel-inner">
-      <div class="carousel-item active" style="max-height:900px;">
-        <img th:src="@{/img/quinceañeros/quince.webp}" class="d-block w-100" alt="...">
-        <div class="carousel-caption d-none d-md-block">
+    <div class="carousel-inner hero-container">
+
+      <div class="carousel-item active h-100">
+        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2070&auto=format&fit=crop"
+             class="d-block w-100 h-100 img-cover" alt="Bodas de Ensueño">
+        <div class="overlay-dark"></div>
+        <div class="carousel-caption d-flex flex-column justify-content-center h-100">
+          <h1 class="display-3 fw-bold text-white text-shadow slide-in-top">Bodas de Ensueño</h1>
+          <p class="lead text-light text-shadow fade-in">Hacemos que el día más importante de tu vida sea perfecto.
+          </p>
+          <div class="mt-4 fade-in">
+            <a th:href="@{/reserva}" class="btn btn-primary btn-lg px-5 rounded-pill hero-btn">Reserva tu fecha</a>
+          </div>
         </div>
       </div>
-      <div class="carousel-item" style="max-height:700px;">
-        <img th:src="@{/img/bodas/groom-putting-ring-bride-s-finger.jpg}" class="d-block w-100" alt="...">
+
+      <div class="carousel-item h-100">
+        <img src="https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?q=80&w=2072&auto=format&fit=crop"
+             class="d-block w-100 h-100 img-cover" alt="Eventos Corporativos">
+        <div class="overlay-dark"></div>
+        <div class="carousel-caption d-flex flex-column justify-content-center h-100">
+          <h1 class="display-3 fw-bold text-white text-shadow slide-in-top">Eventos Sociales</h1>
+          <p class="lead text-light text-shadow fade-in">Celebra la vida con estilo, elegancia y sin preocupaciones.
+          </p>
+          <div class="mt-4 fade-in">
+            <a th:href="@{/reserva}" class="btn btn-primary btn-lg px-5 rounded-pill hero-btn">Reserva tu fecha</a>
+          </div>
+        </div>
       </div>
-      <div class="carousel-item" style="max-height:700px;">
-        <img th:src="@{/img/baby_showers/masculino.jpg}" class="d-block w-100" alt="...">
+
+      <div class="carousel-item h-100">
+        <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?q=80&w=2069&auto=format&fit=crop"
+             class="d-block w-100 h-100 img-cover" alt="Fiestas Inolvidables">
+        <div class="overlay-dark"></div>
+        <div class="carousel-caption d-flex flex-column justify-content-center h-100">
+          <h1 class="display-3 fw-bold text-white text-shadow slide-in-top">Experiencias Únicas</h1>
+          <p class="lead text-light text-shadow fade-in">Nos encargamos de cada detalle para que tú solo disfrutes.
+          </p>
+          <div class="mt-4 fade-in">
+            <a th:href="@{/reserva}" class="btn btn-primary btn-lg px-5 rounded-pill hero-btn">Reserva tu fecha</a>
+          </div>
+        </div>
       </div>
+
     </div>
 
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-      data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-      data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
     </button>
   </div>
 
-  <main style="background-color: #013a63;">
-    <section
-      style="height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 50px;">
-      <div id="nosotros"
-        style="width: 100vw; max-width: 1300px; align-items: center; display: flex; flex-direction: column; justify-content: center;">
+  <main class="bg-dark-blue text-white pb-5">
 
-        <div class="row">
-          <h2 class="text-center" style="font-family: 'Roboto', sans-serif; color: white;">SOBRE NOSOTROS</h2>
-          <p class="col" style="text-align: justify; font-size: 1.3rem; font-family: 'Roboto', sans-serif; color: white;">En Eventos
-            Aranda nacimos como proveedores de mobiliario para eventos y, con el
-            tiempo, hemos evolucionado hasta convertirnos en una empresa especializada en la organización integral de
-            celebraciones sociales y corporativas. <br>Nuestro principal objetivo es la satisfacción y tranquilidad de
-            nuestros clientes. Por ello, contamos con un equipo profesional que trabaja con pasión para crear
-            experiencias
-            únicas e inolvidables. </p>
-        </div>
-      </div>
-      <div
-        style="height: 40vh; width: 100vw; max-width: 1300px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-        <h3 class="text-center fw-semibold mb-4" style="color: white;">¿Por qué elegirnos?</h3>
-        <div class="row text-center">
-          <div class="col md-3 mb-3">
-            <div class="p-4 h-100 shadow border-0 hover-shadow">
-              <img th:src="@{/img/icons/cheers.png}" alt="Diferencia" class="mb-3 mx-auto d-block" width="60">
-              <h4 class="fw-medium" style="color: white;">Marca la diferencia</h4>
-              <p style="color: white;">Ofrecemos las últimas tendencias mundiales.</p>
-            </div>
-          </div>
-
-          <div class="col md-3 mb-3" style="color: white;">
-            <div class="p-4 h-100 shadow border-0 hover-shadow">
-              <img th:src="@{/img/icons/piggy-bank.png}" alt="Equipo" class="mb-3 mx-auto d-block" width="60">
-              <h4 class="fw-medium">El lujo no siempre es caro</h4>
-              <p style="color: white;">Nos esforzamos por conseguir lo mejor para tu presupuesto.</p>
-            </div>
-          </div>
-
-          <div class="col md-3 mb-3">
-            <div class="p-4 h-100 shadow border-0 hover-shadow">
-              <img th:src="@{/img/icons/holidays-party.png}" alt="Clientes" class="mb-3 mx-auto d-block" width="60">
-              <h4 class="fw-medium" style="color: white;">Clientes felices</h4>
-              <p style="color: white;">Nuestra prioridad es su satisfacción y tranquilidad.</p>
-            </div>
-          </div>
-          <div class="col md-3 mb-3">
-            <div class="p-4 h-100 shadow border-0 hover-shadow">
-              <img th:src="@{/img/icons/iconoCorazon.png}" alt="Clientes" class="mb-3 mx-auto d-block" width="60">
-              <h4 class="fw-medium" style="color: white;">Expertos en cada detalle</h4>
-              <p style="color: white;">Escuchamos tus ideas y sueños para hacerlo realidad</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </section>
-  </main>
-  <footer class="bg-dark text-white text-center text-lg-start mt-5">
-    <div class="container p-4">
-      <div class="row">
-        <div class="col-lg-4 col-md-6 mb-4">
-          <h5 class="text-uppercase" style="color: white;">Eventos Aranda</h5>
-          <p style="color: white;">
-            Creamos experiencias inolvidables para tus eventos sociales y corporativos.
-            Nuestra misión es brindarte tranquilidad y satisfacción en cada detalle.
+    <section id="nosotros" class="container pt-5 pb-4">
+      <div class="row justify-content-center text-center mt-5">
+        <div class="col-lg-8">
+          <span class="text-uppercase tracking-widest text-accent fw-bold">Conócenos</span>
+          <h2 class="display-5 fw-bold mb-4 font-montserrat">Sobre Nosotros</h2>
+          <div class="divider mx-auto mb-4"></div>
+          <p class="lead fs-5" style="line-height: 1.8; color: #d1e8ff;">
+            En <strong>Eventos Society Club</strong> nacimos como proveedores de mobiliario para eventos y hemos
+            evolucionado hasta convertirnos en especialistas en la organización integral de celebraciones.
+            <br><br>
+            Nuestro principal objetivo es tu tranquilidad. Contamos con un equipo profesional que trabaja con pasión
+            para crear experiencias únicas que tú y tus invitados recordarán por siempre.
           </p>
         </div>
-
-        <div class="col-lg-4 col-md-6 mb-4">
-          <h5 class="text-uppercase" style="color: white;">Enlaces</h5>
-          <ul class="list-unstyled mb-0" style="color: white;">
-            <li><a href="#" class="text-white text-decoration-none" style="color: white;">Inicio</a></li>
-            <li><a href="#" class="text-white text-decoration-none" style="color: white;">Sobre nosotros</a></li>
-            <li><a href="#" class="text-white text-decoration-none" style="color: white;">Servicios</a></li>
-            <li><a href="#" class="text-white text-decoration-none" style="color: white;">Contacto</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-4 col-md-12 mb-4">
-          <h5 class="text-uppercase">Contactanos</h5>
-          <p><i class="bi bi-geo-alt"></i> Lima, Perú</p>
-          <p><i class="bi bi-envelope"></i> Aranda@gmail.com</p>
-          <p><i class="bi bi-phone"></i> +51 987 654 321 </p>
-        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="text-center p-3 bg-secondary">
-      © 2026 Eventos Aranda - Todos los derechos reservados
-    </div>
-  </footer>
+    <section class="container py-5 mb-0 pb-5">
+      <div class="text-center mb-5">
+        <h3 class="fw-bold font-montserrat display-6">¿Por qué elegirnos?</h3>
+      </div>
+
+      <div class="row g-4 text-center">
+
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 h-100 glass-card">
+            <div class="icon-circle mb-3 mx-auto">✨</div>
+            <h5 class="fw-bold mb-3 font-montserrat">Marca la diferencia</h5>
+            <p class="mb-0 text-light-blue">Ofrecemos las últimas tendencias mundiales para que tu evento destaque del
+              resto.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 h-100 glass-card">
+            <div class="icon-circle mb-3 mx-auto">💎</div>
+            <h5 class="fw-bold mb-3 font-montserrat">Lujo accesible</h5>
+            <p class="mb-0 text-light-blue">Maximizamos el valor de tu presupuesto entregando calidad premium sin
+              excedernos.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 h-100 glass-card">
+            <div class="icon-circle mb-3 mx-auto">🥂</div>
+            <h5 class="fw-bold mb-3 font-montserrat">Clientes felices</h5>
+            <p class="mb-0 text-light-blue">Tu sonrisa al ver el resultado final es nuestra mayor recompensa y métrica
+              de éxito.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 h-100 glass-card">
+            <div class="icon-circle mb-3 mx-auto">🎯</div>
+            <h5 class="fw-bold mb-3 font-montserrat">Expertos al detalle</h5>
+            <p class="mb-0 text-light-blue">Nada se deja al azar. Escuchamos tus ideas y las ejecutamos con precisión
+              milimétrica.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
   <style>
-    .hover-shadow:hover {
-      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25) !important;
-      transform: translateY(-3px);
-      transition: 0.4s;
+    /* --- CORRECCIÓN 2: Fondo oscuro general para evitar franjas --- */
+    body,
+    html {
+      background-color: #012a4a !important;
+    }
+
+    main.bg-dark-blue {
+      min-height: 50vh;
+      margin-bottom: 0 !important;
+    }
+
+    /* Tipografía */
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .tracking-widest {
+      letter-spacing: 0.2em;
+    }
+
+    .text-accent {
+      color: #64b5f6;
+    }
+
+    .text-light-blue {
+      color: #a9d6fc;
+    }
+
+    /* Colores de fondo */
+    .bg-dark-blue {
+      background-color: #012a4a;
+    }
+
+    /* Ajuste del Carrusel Hero */
+    .hero-container {
+      height: 100vh;
+      min-height: 500px;
+    }
+
+    .img-cover {
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .overlay-dark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(1, 42, 74, 0.4), rgba(1, 42, 74, 0.8));
+    }
+
+    /* Animaciones y textos del Hero */
+    .text-shadow {
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero-btn {
+      background-color: #014f86;
+      border: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .hero-btn:hover {
+      background-color: #2a6f97;
+      transform: scale(1.05);
+    }
+
+    /* Separador visual */
+    .divider {
+      width: 60px;
+      height: 4px;
+      background-color: #64b5f6;
+      border-radius: 2px;
+    }
+
+    /* Tarjetas Glassmorphism Modernas */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Iconos de las tarjetas */
+    .icon-circle {
+      width: 70px;
+      height: 70px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    }
+
+    /* Animaciones de entrada */
+    .slide-in-top {
+      animation: slide-in-top 0.8s ease-out both;
+    }
+
+    .fade-in {
+      animation: fade-in 1.5s ease-out both;
+    }
+
+    @keyframes slide-in-top {
+      0% {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fade-in {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
     }
   </style>
+
+</div>
+
 </body>
 
 </html>

@@ -66,7 +66,7 @@ public String mostrarFormularioReserva(
             @ModelAttribute EventoReservado reserva,
             HttpSession session,
             Model model) {
-
+        System.out.println("==== ID DEL EVENTO RECIBIDO EN POST: " + id_evento + " ====");
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         if (usuario == null) {
             return "redirect:/Login";
@@ -74,8 +74,9 @@ public String mostrarFormularioReserva(
 
         Evento evento = eventoServicio.obtenerPorId(id_evento);
 
-        
-
+        if(evento == null){
+            return "redirect:/servicios";
+        }
         reserva.setCliente(usuario);
         reserva.setEvento(evento);
         double precio = evento.getPrecio();
