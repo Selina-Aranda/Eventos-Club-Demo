@@ -1,7 +1,6 @@
 package com.example.demo.servicio;
 
 import org.springframework.stereotype.Component;
-import java.util.UUID;
 
 @Component
 public class TokenUtil {
