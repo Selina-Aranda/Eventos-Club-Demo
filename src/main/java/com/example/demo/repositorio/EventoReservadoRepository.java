@@ -14,4 +14,10 @@ public interface EventoReservadoRepository extends JpaRepository<EventoReservado
 
     @Query("SELECT r FROM EventoReservado r ORDER BY r.fecha_reservada DESC")
     List<EventoReservado> obtenerUltimasReservas(Pageable pageable);
+
+    @Query("SELECT r.evento.tipo, COUNT(r) FROM EventoReservado r GROUP BY r.evento.tipo")
+    List<Object[]> contarReservasPorTipo();
+
+    @Query("SELECT MONTH(r.fecha_reservada), COUNT(r) FROM EventoReservado r GROUP BY MONTH(r.fecha_reservada) ORDER BY MONTH(r.fecha_reservada) ASC")
+    List<Object[]> contarReservasPorMes();
 }

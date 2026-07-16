@@ -9,36 +9,58 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
-        body {
-            display: flex;
-            min-height: 100vh;
-            background-color: #f4f6f9;
-        }
-        .sidebar {
-            width: 260px;
-            background: linear-gradient(180deg, #1f1c2c, #928dab);
-            color: #fff;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .sidebar h4 { text-align: center; font-weight: bold; margin-bottom: 25px; }
-        .sidebar a { color: #d1d1d1; text-decoration: none; padding: 10px 15px; display: block; border-radius: 8px; }
-        .sidebar a:hover, .sidebar a.active { background-color: #6a6df0; color: #fff; }
-        .content { flex: 1; padding: 40px; background: #f8f9fa; }
-        .card-dashboard { border: none; border-radius: 15px; transition: transform 0.3s ease; }
-        .card-dashboard:hover { transform: translateY(-5px); box-shadow: 0px 4px 12px rgba(0,0,0,0.1); }
-        .logout-btn { background-color: #dc3545; color: white; border: none; }
-        .logout-btn:hover { background-color: #bb2d3b; }
-    </style>
+    :root {
+        --dark-blue: #0B1220;
+        --mid-blue: #103F5E;
+        --deep-blue: #012A4A;
+        --text-light: #ffffff;
+    }
+    body {
+        display: flex;
+        min-height: 100vh;
+        background-color: #f8f9fa;
+    }
+    .sidebar {
+        width: 260px;
+        background: var(--dark-blue);
+        color: var(--text-light);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    .sidebar h4 { color: #fff; text-align: center; margin-bottom: 30px; }
+    .sidebar a { 
+        color: #b0c4de; 
+        text-decoration: none; 
+        padding: 12px 15px; 
+        display: block; 
+        border-radius: 8px; 
+        transition: 0.3s;
+    }
+    .sidebar a:hover, .sidebar a.active { 
+        background-color: var(--mid-blue); 
+        color: #fff; 
+    }
+    .content { flex: 1; padding: 40px; }
+    
+    /* Componentes */
+    .card { border: none; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .table thead { background: var(--deep-blue); color: #fff; }
+    
+    /* Botones */
+    .btn-primary { background-color: var(--mid-blue); border-color: var(--mid-blue); }
+    .btn-primary:hover { background-color: var(--deep-blue); border-color: var(--deep-blue); }
+    
+    .logout-btn { background-color: #4a1010; color: white; border: none; }
+    .logout-btn:hover { background-color: #7a1b1b; }
+</style>
 </head>
 <body>
 
     <!-- Sidebar -->
     <div class="sidebar d-flex flex-column p-3">
         <div>
-            <h4><i class="bi bi-stars"></i> Eventos Aranda</h4>
+            <h4><i class="bi bi-stars"></i> Society Club Eventos</h4>
             <ul class="nav flex-column mb-auto">
                 <li><a href="#" class="active"><i class="bi bi-speedometer2"></i> Panel General</a></li>
                 <li><a href="#" th:href="@{/eventos}"><i class="bi bi-calendar-event"></i> Gestión de Eventos</a></li>
