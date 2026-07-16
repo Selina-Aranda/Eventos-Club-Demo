@@ -5,49 +5,82 @@
     <meta charset="UTF-8">
     <title>Reservas - Admin Eventos Aranda</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        .card {
-            border-radius: 12px;
-        }
-        .table thead {
-            background: #212529;
-            color: #fff;
-        }
-    </style>
+    :root {
+        --dark-blue: #0B1220;
+        --mid-blue: #103F5E;
+        --deep-blue: #012A4A;
+        --text-light: #ffffff;
+    }
+    body {
+        display: flex;
+        min-height: 100vh;
+        background-color: #f8f9fa;
+    }
+    .sidebar {
+        width: 260px;
+        background: var(--dark-blue);
+        color: var(--text-light);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    .sidebar h4 { color: #fff; text-align: center; margin-bottom: 30px; }
+    .sidebar a { 
+        color: #b0c4de; 
+        text-decoration: none; 
+        padding: 12px 15px; 
+        display: block; 
+        border-radius: 8px; 
+        transition: 0.3s;
+    }
+    .sidebar a:hover, .sidebar a.active { 
+        background-color: var(--mid-blue); 
+        color: #fff; 
+    }
+    .content { flex: 1; padding: 40px; }
+    
+    /* Componentes */
+    .card { border: none; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .table thead { background: var(--deep-blue); color: #fff; }
+    
+    /* Botones */
+    .btn-primary { background-color: var(--mid-blue); border-color: var(--mid-blue); }
+    .btn-primary:hover { background-color: var(--deep-blue); border-color: var(--deep-blue); }
+    
+    .logout-btn { background-color: #4a1010; color: white; border: none; }
+    .logout-btn:hover { background-color: #7a1b1b; }
+</style>
 </head>
 
 <body>
-    <div class="container-fluid p-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Reservas Activas</h2>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservaModal"
-                onclick="abrirCrearReserva()">+ Nueva Reserva</button>
+    
+        <!-- Sidebar -->
+    <div class="sidebar d-flex flex-column p-3">
+        <div>
+            <h4><i class="bi bi-stars"></i> Society Club Eventos</h4>
+            <ul class="nav flex-column mb-auto">
+                <li><a href="#" th:href="@{/admin}"><i class="bi bi-speedometer2"></i> Panel General</a></li>
+                <li><a href="#" th:href="@{/eventos}"><i class="bi bi-calendar-event"></i> Gestión de Eventos</a></li>
+                <li><a href="#" class="active"><i class="bi bi-clipboard-check"></i> Reservas</a></li>
+                <li><a href="#" th:href="@{/usuarios}"><i class="bi bi-people"></i> Usuarios</a></li>
+                <li><a href="#" th:href="@{/reportes}"><i class="bi bi-bar-chart-line"></i> Reportes</a></li>
+            </ul>
         </div>
 
-        <div class="card p-3 mb-4 shadow-sm border-0">
-            <table class="table table-striped align-middle">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Cliente</th>
-                        <th>Evento</th>
-                        <th>Fecha</th>
-                        <th>Teléfono</th> <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="reserva : ${reservas}">
-                        <td class="fw-bold px-3" th:text="${reserva.id}">1</td>
+        <div class="mt-4">
+            <a th:href="@{/logout}" class="btn logout-btn w-100">
+                <i class="bi bi-box-arrow-left"></i> Cerrar Sesión
+            </a>
+        </div>
+    </div>
 
-                        <td th:text="${reserva.cliente?.nombre}">Sin cliente</td>
-
-                        <td th:text="${reserva.evento?.tipo}">Sin evento</td>
-                        <td th:text="${reserva.fecha_reservada}">-</td>
-                        <td th:text="${reserva.telefono}">-</td> <td>
-                            <span class="badge rounded-pill bg-warning text-dark px-3 py-2"
-                                th:if="${reserva.estado == 'PENDIENTE_CONFIRMACION' or reserva.estado == 'Pendiente'}">Pendiente</span>
+<div class="container-fluid p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Reservas Activas</h2>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservaModal" onclick="abrirCrearReserva()">+ Nueva Reserva</button>
+    </div>
 
                             <span class="badge rounded-pill bg-success px-3 py-2"
                                 th:if="${reserva.estado == 'CONFIRMADA' or reserva.estado == 'Confirmada'}">Confirmada</span>
