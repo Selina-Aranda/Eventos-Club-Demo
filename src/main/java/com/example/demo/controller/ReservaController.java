@@ -1,31 +1,38 @@
 package com.example.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import com.example.demo.dto.ReservaDTO;
 import com.example.demo.modelo.Evento;
 import com.example.demo.modelo.EventoReservado;
 import com.example.demo.modelo.Usuario;
-import com.example.demo.servicio.EventoService;
-import com.example.demo.servicio.ReservaService;
+import com.example.demo.repositorio.EventoRepository;
+import com.example.demo.repositorio.EventoReservadoRepository;
+import com.example.demo.repositorio.UsuarioRepository;
 
-import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class ReservaController {
 
     @Autowired
-
-    ReservaService reservaServicio;
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
-    EventoService eventoServicio;
+    private EventoRepository eventoRepository;
 
+    @Autowired
+    private EventoReservadoRepository eventoReservadoRepository;
+
+    // ESTA ES LA RUTA EN EL NAVEGADOR
     @GetMapping("/reserva")
     public String reserva(HttpSession session, Model model) {
         Usuario usuario = (Usuario) session.getAttribute("usuario");
@@ -97,5 +104,4 @@ public String mostrarFormularioReserva(
 
         return "reserva-confirmada";
     }
-
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Reservas - Admin Eventos Aranda</title>
@@ -52,6 +53,7 @@
     .logout-btn:hover { background-color: #7a1b1b; }
 </style>
 </head>
+
 <body>
     
         <!-- Sidebar -->
@@ -80,124 +82,128 @@
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservaModal" onclick="abrirCrearReserva()">+ Nueva Reserva</button>
     </div>
 
-    <div class="card p-3 mb-4">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Cliente</th>
-                <th>Evento</th>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="r,iterStat : ${reservas}">
-                <td th:text="${iterStat.count}"></td>
-                <td th:text="${r.cliente.nombre}"></td>
-                <td th:text="${r.evento.tipo}"></td>
-                <td th:text="${r.fecha_reservada}"></td>
-                <td th:text="${r.hora_reservada}"></td>
-                <td><span th:text="${r.estado}" th:classappend="${r.estado=='Confirmada'} ? 'badge bg-success' : 'badge bg-warning'"></span></td>
-                <td>
+                            <span class="badge rounded-pill bg-success px-3 py-2"
+                                th:if="${reserva.estado == 'CONFIRMADA' or reserva.estado == 'Confirmada'}">Confirmada</span>
 
-<button type="button"
-        class="btn btn-sm btn-outline-secondary"
-        th:onclick="abrirEditarReserva([[${r.id}]], '[[${r.cliente.id}]]', '[[${r.evento.id}]]', '[[${r.fecha_reservada}]]', '[[${r.hora_reservada}]]', '[[${r.estado}]]', '[[${r.observaciones}]]')">
-        Editar
-</button>
+                            <span class="badge rounded-pill bg-secondary px-3 py-2"
+                                th:unless="${reserva.estado == 'PENDIENTE_CONFIRMACION' or reserva.estado == 'CONFIRMADA' or reserva.estado == 'Pendiente' or reserva.estado == 'Confirmada'}"
+                                th:text="${reserva.estado ?: 'N/A'}">Otro</span>
+                        </td>
+                        
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary me-1" 
+                                th:onclick="abrirEditarReserva([[${reserva.id}]], [[${reserva.cliente?.id}]], [[${reserva.evento?.id}]], [[${reserva.fecha_reservada}]], [[${reserva.telefono}]], [[${reserva.estado}]], [[${reserva.observaciones}]])">
+                                <i class="bi bi-pencil-fill"></i>
+                            </button>
+                            <a th:href="@{/admin/reservas/eliminar/{id}(id=${reserva.id})}" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Seguro que deseas eliminar esta reserva?');">
+                                <i class="bi bi-trash-fill"></i>
+                            </a>
+                        </td>
+                    </tr>
 
-                    <a th:href="@{'/admin/reservas/eliminar/' + ${r.id}}" class="btn btn-sm btn-danger" onclick="return confirm('Eliminar reserva?')">Eliminar</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                    <tr th:if="${#lists.isEmpty(reservas)}">
+                        <td colspan="7" class="text-center text-muted py-5">
+                            <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+                            Aún no hay eventos reservados.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 
-<!-- Modal Crear/Editar Reserva -->
-<div class="modal fade" id="reservaModal" tabindex="-1">
-    <div class="modal-dialog">
-        <form th:action="@{/admin/reservas/guardar}" th:object="${reserva}" method="post" class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="reservaModalLabel">Nueva Reserva</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" th:field="*{id}">
-                <div class="mb-3">
-                    <label>Cliente</label>
-                    <select th:field="*{cliente.id}" class="form-select" required>
-                        <option value="">-- Elige cliente --</option>
-                        <option th:each="u : ${usuarios}" th:value="${u.id}" th:text="${u.nombre}">Cliente</option>
-                    </select>
+    <div class="modal fade" id="reservaModal" tabindex="-1">
+        <div class="modal-dialog">
+            <form th:action="@{/admin/reservas/guardar}" th:object="${reserva}" method="post" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reservaModalLabel">Nueva Reserva</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="mb-3">
-                    <label>Evento</label>
-                    <select th:field="*{evento.id}" class="form-select" required>
-                        <option value="">-- Elige evento --</option>
-                        <option th:each="e : ${eventos}" th:value="${e.id}" th:text="${e.tipo}">Evento</option>
-                    </select>
+                <div class="modal-body">
+                    <input type="hidden" th:field="*{id}">
+                    
+                    <div class="mb-3">
+                        <label>Cliente</label>
+                        <select th:field="*{cliente}" class="form-select" required>
+                            <option value="">-- Elige cliente --</option>
+                            <option th:each="u : ${usuarios}" th:value="${u.id}" th:text="${u.nombre}">Cliente</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label>Evento</label>
+                        <select th:field="*{evento}" class="form-select" required>
+                            <option value="">-- Elige evento --</option>
+                            <option th:each="e : ${eventos}" th:value="${e.id}" th:text="${e.tipo}">Evento</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label>Fecha</label>
+                        <input type="date" th:field="*{fecha_reservada}" class="form-control" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label>Teléfono</label> <input type="text" th:field="*{telefono}" class="form-control" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label>Estado</label>
+                        <select th:field="*{estado}" class="form-select">
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Confirmada">Confirmada</option>
+                            <option value="Cancelada">Cancelada</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label>Observaciones</label>
+                        <textarea th:field="*{observaciones}" class="form-control" rows="3"></textarea>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label>Fecha</label>
-                    <input type="date" th:field="*{fecha_reservada}" class="form-control" required>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Reserva</button>
                 </div>
-                <div class="mb-3">
-                    <label>Hora</label>
-                    <input type="time" th:field="*{hora_reservada}" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label>Estado</label>
-                    <select th:field="*{estado}" class="form-select">
-                        <option value="Pendiente">Pendiente</option>
-                        <option value="Confirmada">Confirmada</option>
-                        <option value="Cancelada">Cancelada</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label>Observaciones</label>
-                    <textarea th:field="*{observaciones}" class="form-control" rows="3"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Guardar Reserva</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    function abrirCrearReserva() {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function abrirCrearReserva() {
             const form = document.querySelector('#reservaModal form');
-        document.getElementById('reservaModalLabel').innerText = 'Nueva Reserva';
-        form.action = '/admin/reservas/guardar';
+            document.getElementById('reservaModalLabel').innerText = 'Nueva Reserva';
+            form.action = '/admin/reservas/guardar';
+            
+            // Limpiar campos
+            form.reset();
+            form.querySelector('[name="id"]').value = '';
 
-         const modal = new bootstrap.Modal(document.getElementById('reservaModal'));
-        modal.show();
-    }
+            const modal = new bootstrap.Modal(document.getElementById('reservaModal'));
+            modal.show();
+        }
 
-     function abrirEditarReserva(id, clienteId, eventoId, fecha, hora, estado, observaciones) {
-        const form = document.querySelector('#reservaModal form');
-        document.getElementById('reservaModalLabel').innerText = 'Editar Reserva';
-        form.action = '/admin/reservas/actualizar'; 
+        function abrirEditarReserva(id, clienteId, eventoId, fecha, telefono, estado, observaciones) {
+            const form = document.querySelector('#reservaModal form');
+            document.getElementById('reservaModalLabel').innerText = 'Editar Reserva';
+            
+            // Usamos la misma ruta de guardar porque el método save() actualiza si le mandas un ID
+            form.action = '/admin/reservas/guardar';
 
+            form.querySelector('[name="id"]').value = id;
+            form.querySelector('[name="cliente"]').value = clienteId;
+            form.querySelector('[name="evento"]').value = eventoId;
+            form.querySelector('[name="fecha_reservada"]').value = fecha;
+            form.querySelector('[name="telefono"]').value = telefono;
+            form.querySelector('[name="estado"]').value = estado;
+            form.querySelector('[name="observaciones"]').value = observaciones;
 
-        form.querySelector('[name="id"]').value = id;
-        form.querySelector('[name="cliente.id"]').value = clienteId;
-        form.querySelector('[name="evento.id"]').value = eventoId;
-        form.querySelector('[name="fecha_reservada"]').value = fecha;
-        form.querySelector('[name="hora_reservada"]').value = hora;
-        form.querySelector('[name="estado"]').value = estado;
-        form.querySelector('[name="observaciones"]').value = observaciones;
-
-        const modal = new bootstrap.Modal(document.getElementById('reservaModal'));
-        modal.show();
-    }
-</script>
+            const modal = new bootstrap.Modal(document.getElementById('reservaModal'));
+            modal.show();
+        }
+    </script>
 </body>
+
 </html>
