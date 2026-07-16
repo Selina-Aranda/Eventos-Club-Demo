@@ -5,9 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reporte de eventos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+     <style>
+    :root {
+        --dark-blue: #0B1220;
+        --mid-blue: #103F5E;
+        --deep-blue: #012A4A;
+        --text-light: #ffffff;
+    }
+    body {
+        display: flex;
+        min-height: 100vh;
+        background-color: #f8f9fa;
+    }
+    .sidebar {
+        width: 260px;
+        background: var(--dark-blue);
+        color: var(--text-light);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    .sidebar h4 { color: #fff; text-align: center; margin-bottom: 30px; }
+    .sidebar a { 
+        color: #b0c4de; 
+        text-decoration: none; 
+        padding: 12px 15px; 
+        display: block; 
+        border-radius: 8px; 
+        transition: 0.3s;
+    }
+    .sidebar a:hover, .sidebar a.active { 
+        background-color: var(--mid-blue); 
+        color: #fff; 
+    }
+    .content { flex: 1; padding: 40px; }
+    
+    /* Componentes */
+    .card { border: none; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .table thead { background: var(--deep-blue); color: #fff; }
+    
+    /* Botones */
+    .btn-primary { background-color: var(--mid-blue); border-color: var(--mid-blue); }
+    .btn-primary:hover { background-color: var(--deep-blue); border-color: var(--deep-blue); }
+    
+    .logout-btn { background-color: #4a1010; color: white; border: none; }
+    .logout-btn:hover { background-color: #7a1b1b; }
+</style>
 </head>
 <body class="bg-light">
+
+      <!-- Sidebar -->
+    <div class="sidebar d-flex flex-column p-3">
+        <div>
+            <h4><i class="bi bi-stars"></i> Society Club Eventos</h4>
+            <ul class="nav flex-column mb-auto">
+                <li><a href="#" th:href="@{/admin}"><i class="bi bi-speedometer2"></i> Panel General</a></li>
+                <li><a href="#" th:href="@{/eventos}"><i class="bi bi-calendar-event"></i> Gestión de Eventos</a></li>
+                <li><a href="#" th:href="@{/reservas}"><i class="bi bi-clipboard-check"></i> Reservas</a></li>
+                <li><a href="#" th:href="@{/usuarios}"><i class="bi bi-people"></i> Usuarios</a></li>
+                <li><a href="#" class="active"><i class="bi bi-bar-chart-line"></i> Reportes</a></li>
+            </ul>
+        </div>
+
+        <div class="mt-4">
+            <a th:href="@{/logout}" class="btn logout-btn w-100">
+                <i class="bi bi-box-arrow-left"></i> Cerrar Sesión
+            </a>
+        </div>
+    </div>
 
 <div class="container mt-5">
     <h2 class="text-center mb-4">📊 Reporte de Eventos Reservados</h2>

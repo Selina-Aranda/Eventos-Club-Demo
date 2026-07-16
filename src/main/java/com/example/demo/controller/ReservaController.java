@@ -34,59 +34,74 @@ public class ReservaController {
 
     // ESTA ES LA RUTA EN EL NAVEGADOR
     @GetMapping("/reserva")
-    public String mostrarFormulario() {
-        return "reserva"; 
+    public String reserva(HttpSession session, Model model) {
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        if (usuario == null) {
+            return "redirect:/Login";
+        }
+
+        model.addAttribute("nombreUsuario", usuario.getNombre());
+        return "reserva"; // Carga reserva.html
     }
 
-    @PostMapping("/api/reservar/enviar")
-    @ResponseBody
-    public ResponseEntity<?> procesarReserva(@RequestBody ReservaDTO dto) {
-        Map<String, String> response = new HashMap<>();
-        try {
-            LocalDate fechaDeseada = LocalDate.parse(dto.getFecha());
+@GetMapping("/reservar")
+public String mostrarFormularioReserva(
+        @RequestParam Integer id_evento,
+        @RequestParam String evento,
+        @RequestParam double precio,
+        @RequestParam String img,
+        HttpSession session,
+        Model model
+) {
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
+    if (usuario == null) {
+        return "redirect:/Login";
+    }
 
-            // 1. VALIDACIÓN DE DISPONIBILIDAD
-            if (eventoReservadoRepository.existeReservaEnFecha(fechaDeseada)) {
-                response.put("error", "Lo sentimos, esa fecha ya está reservada. Por favor elige otra.");
-                return ResponseEntity.badRequest().body(response); 
-            }
+    model.addAttribute("cliente", usuario.getNombre());
+    model.addAttribute("evento", evento);
+    model.addAttribute("precio", precio);
+    model.addAttribute("img", img);
+    model.addAttribute("id_evento", id_evento); 
 
-            // 2. LÓGICA DEL USUARIO
-            Usuario cliente = usuarioRepository.findByEmail(dto.getCorreo());
-            if (cliente == null) {
-                cliente = new Usuario();
-                cliente.setNombre(dto.getNombre());
-                cliente.setEmail(dto.getCorreo());
-                cliente = usuarioRepository.save(cliente);
-            }
+    return "formReserva";
+}
 
-            // 3. LÓGICA DEL EVENTO/SERVICIO
-            Evento evento = eventoRepository.findByTipo(dto.getServicio())
-                .orElseGet(() -> {
-                    Evento nuevoEvento = new Evento();
-                    nuevoEvento.setTipo(dto.getServicio());
-                    nuevoEvento.setDescripcion("Servicio automático generado desde reservas");
-                    return eventoRepository.save(nuevoEvento);
-                });
-
-            // 4. CREAR LA RESERVA FINAL
-            EventoReservado reserva = new EventoReservado();
-            reserva.setCliente(cliente);
-            reserva.setEvento(evento);
-            reserva.setTelefono(dto.getNumero());
-            reserva.setObservaciones(dto.getDetalles());
-            reserva.setFecha_reservada(fechaDeseada);
-            reserva.setEstado("PENDIENTE_CONFIRMACION"); 
-
-            eventoReservadoRepository.save(reserva);
-
-            response.put("mensaje", "¡Reserva solicitada con éxito! La fecha ha sido bloqueada.");
-            return ResponseEntity.ok(response);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.put("error", "Error interno al procesar la reserva. Verifica el formato de fecha.");
-            return ResponseEntity.internalServerError().body(response);
+    @PostMapping("/reservas/guardar")
+    public String guardarReserva(
+            @RequestParam("id_evento") Integer id_evento,
+            @ModelAttribute EventoReservado reserva,
+            HttpSession session,
+            Model model) {
+        System.out.println("==== ID DEL EVENTO RECIBIDO EN POST: " + id_evento + " ====");
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        if (usuario == null) {
+            return "redirect:/Login";
         }
+
+        Evento evento = eventoServicio.obtenerPorId(id_evento);
+
+        if(evento == null){
+            return "redirect:/servicios";
+        }
+        reserva.setCliente(usuario);
+        reserva.setEvento(evento);
+        double precio = evento.getPrecio();
+
+        reserva.setEstado("Confirmado");
+
+        reservaServicio.guardar(reserva);
+        model.addAttribute("reserva", reserva);
+
+        model.addAttribute("cliente", usuario.getNombre());
+        model.addAttribute("evento", reserva.getEvento());
+        model.addAttribute("precio", precio);
+        model.addAttribute("fecha", reserva.getFecha_reservada());
+        model.addAttribute("hora", reserva.getHora_reservada());
+        model.addAttribute("telefono", reserva.getTelefono());
+        model.addAttribute("metodo", reserva.getMetodo_pago());
+        model.addAttribute("estado", reserva.getEstado());
+
+        return "reserva-confirmada";
     }
 }

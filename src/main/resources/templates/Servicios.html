@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="es" 
-      xmlns:th="http://www.thymeleaf.org" 
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 
@@ -22,135 +22,136 @@
 
 <body>
 
-  <div layout:fragment="content">
-      
-      <div class="pt-5 mt-5"></div>
+<div layout:fragment="content">
 
-      <section class="container p-2" id="services">
-        <h1 class="text-center fw-bold mb-4" style="color: #0b1220;">Nuestros Servicios</h1>
-        <div class="row g-4" id="serviciosContainer"></div>
-      </section>
+  <div class="pt-5 mt-5"></div>
 
-      <div class="modal fade" id="servicioModal" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="modalTitle"></h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-              <img id="modalImg" src="" class="img-fluid mb-3 rounded" alt="">
-              <p id="modalDesc"></p>
-              <div class="d-flex flex-wrap gap-2" id="modalGaleria"></div>
-            </div>
-          </div>
+  <section class="container p-2" id="services">
+    <h1 class="text-center fw-bold mb-4" style="color: #0b1220;">Nuestros Servicios</h1>
+    <div class="row g-4" id="serviciosContainer"></div>
+  </section>
+
+  <div class="modal fade" id="servicioModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <img id="modalImg" src="" class="img-fluid mb-3 rounded" alt="">
+          <p id="modalDesc"></p>
+          <div class="d-flex flex-wrap gap-2" id="modalGaleria"></div>
         </div>
       </div>
+    </div>
+  </div>
 
-  </div> <script layout:fragment="script">
-    document.addEventListener("DOMContentLoaded", () => {
-      const servicios = [
-        {
-          nombre: "Fiesta de 50 años",
-          descripcion: "Celebra medio siglo con una fiesta inolvidable. Decoración elegante, música en vivo y detalles personalizados.",
-          imagen: "img/50_anios/50an.jpg",
-          galeria: [
-            "/img/50_anios/decoracion.jpg",
-            "/img/50_anios/bar.jpg",
-            "/img/50_anios/bocaditos.jpg",
-            "/img/50_anios/pastel.jpg"
-          ]
-        },
-        {
-          nombre: "Baby Shower",
-          descripcion: "Creamos un ambiente tierno y especial para dar la bienvenida al nuevo miembro de la familia.",
-          imagen: "/img/baby_showers/decoracion_conejito.jpg",
-          galeria: [
-            "/img/baby_showers/decoracion_femenina.jpg",
-            "/img/baby_showers/masculino.jpg",
-            "/img/baby_showers/niño_O_niña.jpg",
-            "/img/baby_showers/decoracion_osito.jpg"
-          ]
-        },
-        {
-          nombre: "Bautizos",
-          descripcion: "Organizamos bautizos con toques clásicos y modernos, adaptándonos a tus tradiciones.",
-          imagen: "/img/bautizos/decoracion.jpg",
-          galeria: [
-            "/img/bautizos/mesa.jpg",
-            "/img/bautizos/pastel.jpg"
-          ]
-        },
-        {
-          nombre: "Graduaciones",
-          descripcion: "Eventos para cerrar ciclos escolares con alegría, recuerdos y estilo.",
-          imagen: "/img/graduaciones/escenario.jpg",
-          galeria: [
-            "/img/graduaciones/aaa.jpg",
-            "/img/graduaciones/promocion_primaria.jpg",
-            "/img/graduaciones/promocion.jpg",
-            "/img/graduaciones/escenario2.jpg",
-            "/img/graduaciones/el_causa.jpg",
-            "/img/graduaciones/hora_loca.jpg"
-          ]
-        },
-        {
-          nombre: "Bodas",
-          descripcion: "Diseñamos bodas de ensueño, cuidando cada detalle, desde la ceremonia hasta la fiesta.",
-          imagen: "/img/bodas/novios.jpg",
-          galeria: [
-            "/img/bodas/novios_baile.jpg",
-            "/img/bodas/novios_mirada.jpg",
-            "/img/bodas/novios_piscina.jpg",
-            "/img/bodas/la_mascara_en_la_boda.jpg"
-          ]
-        },
-        {
-          nombre: "Decoraciones",
-          descripcion: "Desde decoraciones para cumpleaños infantiles hasta adultos, hacemos que cada celebración sea única.",
-          imagen: "/img/cumpleaños/cumpleaños_ramdom.jpg",
-          galeria: [
-            "/img/cumpleaños/cumpleaños_cristiano.jpg",
-            "/img/cumpleaños/decoracion1.jpg"
-          ]
-        },
-        {
-          nombre: "Despedidas de soltera",
-          descripcion: "Organizamos despedidas inolvidables: divertidas, glamorosas o temáticas, según tu estilo.",
-          imagen: "img/despedida_soltera/señorita.jpg",
-          galeria: [
-            "/img/despedida_soltera/piscina.jpg",
-            "/img/despedida_soltera/señorita.jpg"
-          ]
-        },
-        {
-          nombre: "Quinceañeros",
-          descripcion: "Una noche mágica para celebrar los 15 años con elegancia, música, luces y más.",
-          imagen: "/img/quinceañeros/decoracion_amplio.jpg",
-          galeria: [
-            "/img/quinceañeros/quinceañera.jpg",
-            "/img/quinceañeros/quinceañera2.jpg",
-            "/img/quinceañeros/quinceañera3.jpg",
-            "/img/quinceañeros/torta_.jpg",
-            "/img/quinceañeros/quinceañero_sala.jpg",
-            "/img/quinceañeros/quinceañera_y_escenario.jpg",
-            "/img/quinceañeros/quinceañera_y_barman.jpg"
-          ]
-        }
-      ];
+</div> <script layout:fragment="script">
+  document.addEventListener("DOMContentLoaded", () => {
+    const servicios = [
+      {
 
-      const contenedor = document.getElementById("serviciosContainer");
-      const modal = new bootstrap.Modal(document.getElementById("servicioModal"));
-      const modalTitle = document.getElementById("modalTitle");
-      const modalDesc = document.getElementById("modalDesc");
-      const modalImg = document.getElementById("modalImg");
-      const galeriaContenedor = document.getElementById("modalGaleria");
+        nombre: "Fiesta de 50 años",
+        descripcion: "Celebra medio siglo con una fiesta inolvidable. Decoración elegante, música en vivo y detalles personalizados.",
+        imagen: "img/50_anios/50an.jpg",
+        galeria: [
+          "/img/50_anios/decoracion.jpg",
+          "/img/50_anios/bar.jpg",
+          "/img/50_anios/bocaditos.jpg",
+          "/img/50_anios/pastel.jpg"
+        ]
+      },
+      {
+        nombre: "Baby Shower",
+        descripcion: "Creamos un ambiente tierno y especial para dar la bienvenida al nuevo miembro de la familia.",
+        imagen: "/img/baby_showers/decoracion_conejito.jpg",
+        galeria: [
+          "/img/baby_showers/decoracion_femenina.jpg",
+          "/img/baby_showers/masculino.jpg",
+          "/img/baby_showers/niño_O_niña.jpg",
+          "/img/baby_showers/decoracion_osito.jpg"
+        ]
+      },
+      {
+        nombre: "Bautizos",
+        descripcion: "Organizamos bautizos con toques clásicos y modernos, adaptándonos a tus tradiciones.",
+        imagen: "/img/bautizos/decoracion.jpg",
+        galeria: [
+          "/img/bautizos/mesa.jpg",
+          "/img/bautizos/pastel.jpg"
+        ]
+      },
+      {
+        nombre: "Graduaciones",
+        descripcion: "Eventos para cerrar ciclos escolares con alegría, recuerdos y estilo.",
+        imagen: "/img/graduaciones/escenario.jpg",
+        galeria: [
+          "/img/graduaciones/aaa.jpg",
+          "/img/graduaciones/promocion_primaria.jpg",
+          "/img/graduaciones/promocion.jpg",
+          "/img/graduaciones/escenario2.jpg",
+          "/img/graduaciones/el_causa.jpg",
+          "/img/graduaciones/hora_loca.jpg"
+        ]
+      },
+      {
+        nombre: "Bodas",
+        descripcion: "Diseñamos bodas de ensueño, cuidando cada detalle, desde la ceremonia hasta la fiesta.",
+        imagen: "/img/bodas/novios.jpg",
+        galeria: [
+          "/img/bodas/novios_baile.jpg",
+          "/img/bodas/novios_mirada.jpg",
+          "/img/bodas/novios_piscina.jpg",
+          "/img/bodas/la_mascara_en_la_boda.jpg"
+        ]
+      },
+      {
+        nombre: "Decoraciones",
+        descripcion: "Desde decoraciones para cumpleaños infantiles hasta adultos, hacemos que cada celebración sea única.",
+        imagen: "/img/cumpleaños/cumpleaños_ramdom.jpg",
+        galeria: [
+          "/img/cumpleaños/cumpleaños_cristiano.jpg",
+          "/img/cumpleaños/decoracion1.jpg"
+        ]
+      },
+      {
+        nombre: "Despedidas de soltera",
+        descripcion: "Organizamos despedidas inolvidables: divertidas, glamorosas o temáticas, según tu estilo.",
+        imagen: "img/despedida_soltera/señorita.jpg",
+        galeria: [
+          "/img/despedida_soltera/piscina.jpg",
+          "/img/despedida_soltera/señorita.jpg"
+        ]
+      },
+      {
+        nombre: "Quinceañeros",
+        descripcion: "Una noche mágica para celebrar los 15 años con elegancia, música, luces y más.",
+        imagen: "/img/quinceañeros/decoracion_amplio.jpg",
+        galeria: [
+          "/img/quinceañeros/quinceañera.jpg",
+          "/img/quinceañeros/quinceañera2.jpg",
+          "/img/quinceañeros/quinceañera3.jpg",
+          "/img/quinceañeros/torta_.jpg",
+          "/img/quinceañeros/quinceañero_sala.jpg",
+          "/img/quinceañeros/quinceañera_y_escenario.jpg",
+          "/img/quinceañeros/quinceañera_y_barman.jpg"
+        ]
+      }
+    ];
 
-      servicios.forEach(servicio => {
-        const col = document.createElement("div");
-        col.className = "col-md-4";
+    const contenedor = document.getElementById("serviciosContainer");
+    const modal = new bootstrap.Modal(document.getElementById("servicioModal"));
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalImg = document.getElementById("modalImg");
+    const galeriaContenedor = document.getElementById("modalGaleria");
 
-        col.innerHTML = `
+    servicios.forEach(servicio => {
+      const col = document.createElement("div");
+      col.className = "col-md-4";
+
+      col.innerHTML = `
           <div class="card h-100 shadow-sm">
             <img src="${servicio.imagen}" class="card-img-top" alt="${servicio.nombre}">
             <div class="card-body">
@@ -161,64 +162,64 @@
           </div>
         `;
 
-        col.querySelector(".verMas").addEventListener("click", () => {
-          modalTitle.textContent = servicio.nombre;
-          modalDesc.textContent = servicio.descripcion;
-          modalImg.src = servicio.imagen;
-          galeriaContenedor.innerHTML = "";
+      col.querySelector(".verMas").addEventListener("click", () => {
+        modalTitle.textContent = servicio.nombre;
+        modalDesc.textContent = servicio.descripcion;
+        modalImg.src = servicio.imagen;
+        galeriaContenedor.innerHTML = "";
 
-          servicio.galeria.forEach(src => {
-            const img = document.createElement("img");
-            img.src = src;
-            img.alt = servicio.nombre;
-            img.className = "img-thumbnail me-2 mb-2";
-            img.style.width = "100px";
-            img.style.cursor = "pointer";
-            img.addEventListener("click", () => { modalImg.src = src; });
-            galeriaContenedor.appendChild(img);
-          });
-
-          modal.show();
+        servicio.galeria.forEach(src => {
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = servicio.nombre;
+          img.className = "img-thumbnail me-2 mb-2";
+          img.style.width = "100px";
+          img.style.cursor = "pointer";
+          img.addEventListener("click", () => { modalImg.src = src; });
+          galeriaContenedor.appendChild(img);
         });
 
-        contenedor.appendChild(col);
+        modal.show();
       });
 
-      // Formulario flotante (Corregido con validación para que no rompa la página)
-      const abrirFormBtn = document.getElementById("abrirFormulario");
-      if (abrirFormBtn) {
-          const formularioFlotante = new bootstrap.Offcanvas(document.getElementById("formularioFlotante"));
-          const formFlotante = document.getElementById("formContactoFlotante");
-          const errorMsg = document.getElementById("mensajeError");
-          const exitoMsg = document.getElementById("mensajeExito");
-
-          abrirFormBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            formularioFlotante.show();
-            errorMsg.classList.add("d-none");
-            exitoMsg.classList.add("d-none");
-            formFlotante.reset();
-          });
-
-          formFlotante.addEventListener("submit", function (e) {
-            e.preventDefault();
-            const nombre = document.getElementById("nombreApellido").value.trim();
-            const correo = document.getElementById("correo").value.trim();
-            const telefono = document.getElementById("telefono").value.trim();
-            const servicio = document.getElementById("servicio").value.trim();
-
-            if (!nombre || !correo || !telefono || !servicio) {
-              errorMsg.classList.remove("d-none");
-              exitoMsg.classList.add("d-none");
-            } else {
-              errorMsg.classList.add("d-none");
-              exitoMsg.classList.remove("d-none");
-              formFlotante.reset();
-              setTimeout(() => formularioFlotante.hide(), 2000);
-            }
-          });
-      }
+      contenedor.appendChild(col);
     });
-  </script>
+
+    // Formulario flotante (Corregido con validación para que no rompa la página)
+    const abrirFormBtn = document.getElementById("abrirFormulario");
+    if (abrirFormBtn) {
+      const formularioFlotante = new bootstrap.Offcanvas(document.getElementById("formularioFlotante"));
+      const formFlotante = document.getElementById("formContactoFlotante");
+      const errorMsg = document.getElementById("mensajeError");
+      const exitoMsg = document.getElementById("mensajeExito");
+
+      abrirFormBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        formularioFlotante.show();
+        errorMsg.classList.add("d-none");
+        exitoMsg.classList.add("d-none");
+        formFlotante.reset();
+      });
+
+      formFlotante.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const nombre = document.getElementById("nombreApellido").value.trim();
+        const correo = document.getElementById("correo").value.trim();
+        const telefono = document.getElementById("telefono").value.trim();
+        const servicio = document.getElementById("servicio").value.trim();
+
+        if (!nombre || !correo || !telefono || !servicio) {
+          errorMsg.classList.remove("d-none");
+          exitoMsg.classList.add("d-none");
+        } else {
+          errorMsg.classList.add("d-none");
+          exitoMsg.classList.remove("d-none");
+          formFlotante.reset();
+          setTimeout(() => formularioFlotante.hide(), 2000);
+        }
+      });
+    }
+  });
+</script>
 </body>
 </html>

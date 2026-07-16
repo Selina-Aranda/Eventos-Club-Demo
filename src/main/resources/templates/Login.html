@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="es" 
-      xmlns:th="http://www.thymeleaf.org" 
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 
@@ -8,95 +8,86 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login | Eventos Aranda</title>
-  <!-- No necesitas volver a llamar a Bootstrap aquí, porque el layout.html ya lo tiene en su <head> -->
 </head>
 
 <body>
 
-  <!-- ✨ MAGIA AQUÍ: Envolvemos todo el contenedor dentro del fragmento -->
-  <!-- Le agregamos 'bg-light' aquí porque el class del body a veces se sobrescribe por el layout -->
-  <div layout:fragment="content" class="bg-light">
-      
-      <!-- CONTENIDO PRINCIPAL -->
-      <!-- Mantenemos el padding-top: 120px para que el navbar no tape tu formulario -->
-      <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; padding-top: 120px; padding-bottom: 50px;">
-        <div class="card shadow-lg p-4" style="width: 26rem;">
-          <h4 id="titulo-form" class="text-center mb-3">Iniciar Sesión</h4>
+<div layout:fragment="content" class="bg-light">
 
-          <form id="form-login" th:action="@{/Login}" method="post">
-            <div class="mb-3">
-              <label class="form-label">Nombre</label>
-              <input type="text" class="form-control" name="nombre" placeholder="Ej: admin" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Contraseña</label>
-              <input type="password" class="form-control" name="contraseña" placeholder="********" required>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+  <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; padding-top: 120px; padding-bottom: 50px;">
+    <div class="card shadow-lg p-4" style="width: 26rem;">
+      <h4 id="titulo-form" class="text-center mb-3">Iniciar Sesión</h4>
 
-            <!-- mensaje de error -->
-            <p th:if="${error}" class="text-danger mt-2" th:text="${error}"></p>
-          </form>
+      <form id="form-login" th:action="@{/Login}" method="post">
+        <div class="mb-3">
+          <label class="form-label">Nombre</label>
+          <input type="text" class="form-control" name="nombre" placeholder="Ej: admin" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Contraseña</label>
+          <input type="password" class="form-control" name="contraseña" placeholder="********" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
 
-          <!-- FORMULARIO REGISTRO (opcional) -->
-          <form id="form-registro" th:action="@{/registro}" method="post" style="display:none;">
-            <div class="mb-3">
-              <label class="form-label">Nombre</label>
-              <input type="text" class="form-control" name="nombre" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Correo</label>
-              <input type="email" class="form-control" name="email" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Contraseña</label>
-              <input type="password" class="form-control" name="contraseña" required>
-            </div>
-            <button type="submit" class="btn btn-success w-100">Registrarse</button>
-          </form>
+        <p th:if="${error}" class="text-danger mt-2" th:text="${error}"></p>
+      </form>
 
-          <hr class="my-4">
+      <form id="form-registro" th:action="@{/registro}" method="post" style="display:none;">
+        <div class="mb-3">
+          <label class="form-label">Nombre</label>
+          <input type="text" class="form-control" name="nombre" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Correo</label>
+          <input type="email" class="form-control" name="email" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Contraseña</label>
+          <input type="password" class="form-control" name="contraseña" required>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Registrarse</button>
+      </form>
 
-          <p class="text-center text-muted">
+      <hr class="my-4">
+
+      <p class="text-center text-muted">
             <span id="toggle-login">¿No tienes cuenta?
               <a href="#" id="mostrar-registro" class="text-decoration-none">Regístrate</a> <br>
               <a th:href="@{/recover}">¿Olvidaste tu contraseña?</a>
             </span>
-            <span id="toggle-registro" style="display:none;">¿Ya tienes cuenta?
+        <span id="toggle-registro" style="display:none;">¿Ya tienes cuenta?
               <a href="#" id="mostrar-login" class="text-decoration-none">Inicia sesión</a>
             </span>
-          </p>
-        </div>
-      </div>
+      </p>
+    </div>
+  </div>
 
-  </div> <!-- FIN DEL FRAGMENTO CONTENT -->
+</div>
+<script layout:fragment="script">
+  const formLogin = document.getElementById("form-login");
+  const formRegistro = document.getElementById("form-registro");
+  const titulo = document.getElementById("titulo-form");
+  const toggleLogin = document.getElementById("toggle-login");
+  const toggleRegistro = document.getElementById("toggle-registro");
 
-  <!-- ✨ Envolvemos tus scripts en el fragmento correspondiente -->
-  <script layout:fragment="script">
-    const formLogin = document.getElementById("form-login");
-    const formRegistro = document.getElementById("form-registro");
-    const titulo = document.getElementById("titulo-form");
-    const toggleLogin = document.getElementById("toggle-login");
-    const toggleRegistro = document.getElementById("toggle-registro");
+  document.getElementById("mostrar-registro").addEventListener("click", (e) => {
+    e.preventDefault(); // Evita que la página salte hacia arriba al hacer clic en el enlace '#'
+    formLogin.style.display = "none";
+    formRegistro.style.display = "block";
+    titulo.textContent = "Crear cuenta";
+    toggleLogin.style.display = "none";
+    toggleRegistro.style.display = "inline";
+  });
 
-    document.getElementById("mostrar-registro").addEventListener("click", (e) => {
-      e.preventDefault(); // Evita que la página salte hacia arriba al hacer clic en el enlace '#'
-      formLogin.style.display = "none";
-      formRegistro.style.display = "block";
-      titulo.textContent = "Crear cuenta";
-      toggleLogin.style.display = "none";
-      toggleRegistro.style.display = "inline";
-    });
-
-    document.getElementById("mostrar-login").addEventListener("click", (e) => {
-      e.preventDefault(); // Evita el salto
-      formRegistro.style.display = "none";
-      formLogin.style.display = "block";
-      titulo.textContent = "Iniciar sesión";
-      toggleLogin.style.display = "inline";
-      toggleRegistro.style.display = "none";
-    });
-  </script>
+  document.getElementById("mostrar-login").addEventListener("click", (e) => {
+    e.preventDefault(); // Evita el salto
+    formRegistro.style.display = "none";
+    formLogin.style.display = "block";
+    titulo.textContent = "Iniciar sesión";
+    toggleLogin.style.display = "inline";
+    toggleRegistro.style.display = "none";
+  });
+</script>
 
 </body>
 </html>
